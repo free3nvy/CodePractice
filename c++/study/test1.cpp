@@ -1,19 +1,59 @@
-// #define NDEBUG          // 加上这行，则 assert 不可用
-#include <assert.h>
+#include <iostream>
+using namespace std;
 
-
-int main()
+class Flyable                       // 能飞的
 {
-    int a = 10;
-    int &b = a;
-    b = 20;
+public:
+    virtual void takeoff() = 0;     // 起飞
+    virtual void land() = 0;        // 降落
+};
+class Bird : public Flyable         // 鸟
+{
+public:
+    void foraging() {}           // 觅食
+    virtual void takeoff() {}
+    virtual void land() {}
+    virtual ~Bird(){}
+};
+class Plane : public Flyable        // 飞机
+{
+public:
+    void carry() {}              // 运输
+    virtual void takeoff() {}
+    virtual void land() {}
+};
 
-    // 这样不行 无法对立即数取值
-    // int var& = 10;
+class type_info
+{
+public:
+    const char* name() const;
+    bool operator == (const type_info & rhs) const;
+    bool operator != (const type_info & rhs) const;
+    int before(const type_info & rhs) const;
+    virtual ~type_info();
+private:
+    
+};
 
-    // 内存里临时变量保存了个10
-    const int& var1 = 10;
+void doSomething(Flyable *obj)                 // 做些事情
+{
+    obj->takeoff();
 
-    int&& var2 = 10;
+    cout << typeid(*obj).name() << endl;        // 输出传入对象类型（"class Bird" or "class Plane"）
 
+    if(typeid(*obj) == typeid(Bird))            // 判断对象类型
+    {
+        Bird *bird = dynamic_cast<Bird *>(obj); // 对象转化
+        bird->foraging();
+    }
+
+    obj->land();
+}
+
+int main(){
+	Bird *b = new Bird();
+	doSomething(b);
+	delete b;
+	b = nullptr;
+	return 0;
 }
