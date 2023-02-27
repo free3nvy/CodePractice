@@ -15,7 +15,7 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	for i := 0; i < MAX_CONN; i++ {
-		go Conn("192.168.199.164:8088", i)
+		go Conn("127.0.0.1:8088", i)
 		time.Sleep(time.Millisecond * 100)
 	}
 	wg.Wait()
@@ -47,3 +47,4 @@ func Conn(addr string, id int) {
 		time.Sleep(time.Second * 10)
 	}
 }
+
