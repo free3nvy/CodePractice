@@ -7,6 +7,9 @@ public:
     virtual void takeoff() = 0;     // 起飞
     virtual void land() = 0;        // 降落
 };
+
+
+
 class Bird : public Flyable         // 鸟
 {
 public:
