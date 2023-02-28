@@ -10,10 +10,25 @@ int main(){
 
 
     for (int i = 0, j = 0; i < 10; i++,j++){
-        cout <<i << j;
+        // cout <<i << j;
         
     }
-    vector<int> demo {10, 2, 3, 4, 5};
+
+    if (/* condition */)
+    {
+            
+    }else if ()
+    {
+        fjia;
+    }
+    else{
+        
+    }
+    
+    
+
+    vector<int> demo(5, 1);
+    cout << demo.at(0);
     // demo.erase(3);
     // cout << demo[1];
     // cout << *demo.begin();

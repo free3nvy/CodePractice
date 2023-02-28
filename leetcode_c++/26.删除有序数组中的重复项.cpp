@@ -12,20 +12,21 @@ public:
         // 用快慢指针
         // 往后面比咯
         // 能做多做原则 可以将双指针位置重新考虑一下
+        // 思考各种特例数组 用原始的双指针思想进行合理设计
         int len = nums.size();
         int slowPointer = 0;
-        for (int i = 0; i < len; i++)
+        for (int i = 1; i < len; i++)
         {
-            if (nums[i] != nums[i + 1])
+            if (nums[slowPointer] != nums[i])
             {
-                nums[slowPointer++] = nums[i];
-            }else{
-                nums[]
+                nums[++slowPointer] = nums[i];
+
             }
+            
             
 
         }
-        return slowPointer;
+        return slowPointer + 1;
         
 
     }
