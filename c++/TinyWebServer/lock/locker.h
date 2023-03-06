@@ -4,7 +4,7 @@
 
 #include <exception>
 #include <pthread.h>
-#include <semaphore>
+#include <semaphore.h>
 // 头文件里面实现函数内容！！
 
 class sem
@@ -44,7 +44,7 @@ private:
     // 这是信号量的数据类型结构！！
     sem_t m_sem;
 
-}
+};
 
 
 class locker
@@ -109,7 +109,7 @@ public:
     bool timewait(pthread_mutex_t * m_mutex, struct timespec t)
     {
         int ret = 0;
-        ret = pthred_cond_timedwait(&m_cond, m_mutex, &t) ;
+        ret = pthread_cond_timedwait(&m_cond, m_mutex, &t) ;
 
         return ret == 0;
     }

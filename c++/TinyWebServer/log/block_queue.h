@@ -8,8 +8,10 @@
 #define BLOCK_QUEUE_H
 
 #include <stdlib.h>
+#include <pthread.h>
 #include "../lock/locker.h"
-#include 
+#include <stdlib.h>
+#include <sys/time.h>
 
 
 
@@ -138,9 +140,71 @@ public:
         if (m_size >= m_max_size)
         {
             m_cond.broadcast();
+            m_mutex.unlock();
+            return false;
+        }
 
+        m_back = (m_back + 1) % m_max_size;
+        m_array[m_back] = item;
+
+        m_size++;
+
+        m_cond.broadcast();
+        m_mutex.unlock();
+        return true;
+    }
+
+    bool pop(T &item)
+    {
+        m_mutex.lock();
+        while (m_size <= 0)
+        {
+            if (!m_cond.wait(m_mutex.get()))
+            {
+                m_mutex.unlock();
+                return false;
+            }
         }
         
+        m_front = (m_front + 1) % m_max_size;
+        item = m_array[m_front];
+        m_size--;
+        m_mutex.unlock();
+        return true;
+
+    }
+
+    // 函数重载！！
+    bool pop(T &item, int ms_timeout)
+    {
+        struct timespec t = {0, 0};
+        struct timeval now = {0, 0};
+        gettimeofday(&now, NULL);
+        m_mutex.lock();
+        if (m_size <= 0)
+        {
+            t.tv_sec = now.tv_sec + ms_timeout / 1000;
+            t.tv_nsec = (ms_timeout % 1000) * 1000;
+            if (!m_cond.timewait(m_mutex.get(), t))
+            {
+                m_mutex.unlock();
+                return false;
+            }
+        }
+
+        if (m_size <= 0)
+        {
+            m_mutex.unlock();
+            return false;
+        }
+
+        m_front = (m_front + 1) % m_max_size;
+        item = m_array[m_front];
+        m_size--;
+        m_mutex.unlock();
+        return true;
+
+
     }
 
 
