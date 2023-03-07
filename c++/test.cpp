@@ -1,72 +1,49 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<pthread.h>
-#include <unistd.h>
-
+#include <list>
+#include <iostream>
+#include <map>
 using namespace std;
-
-/* 声明结构体 */
-struct member
+ 
+ 
+int main()
 {
-  int num;
-  char *name;
-};
-
-/* 定义线程pthread */
-static void * pthread(void *arg)
-{
-  struct member *temp;
-
-  /* 线程pthread开始运行 */
-  printf("pthread start!\n");
-
-  /* 令主线程继续执行 */
-  sleep(2);
-
-  /* 打印传入参数 */
-  temp = (struct member *)arg;
-  printf("member->num:%d\n",temp->num);
-  printf("member->name:%s\n",temp->name);
-
-  return NULL;
-}
-
-/* main函数 */
-int main(int agrc,char* argv[])
-{
-
-  int *i = nullptr;
-  int c;
-  int *a = &c;
-  delete a;
-
-  pthread_t tidp;
-  struct member *b;
-
-  /* 为结构体变量b赋值 */
-  b = (struct member *)malloc(sizeof(struct member));
-  b->num=1;
-  b->name="mlq";
-
-  /* 创建线程pthread */
-  if ((pthread_create(&tidp, NULL, pthread, (void*)b)) == -1)
-  {
-    printf("create error!\n");
-    return 1;
-  }
-
-  /* 令线程pthread先运行 */
-  sleep(1);
-
-  /* 线程pthread睡眠2s，此时main可以先执行 */
-  printf("mian continue!\n");
-
-  /* 等待线程pthread释放 */
-  if (pthread_join(tidp, NULL))
-  {
-    printf("thread is not exit...\n");
-    return -2;
-  }
-
-  return 0;
+	
+	int id1, id2, num, n;
+	char str[10];
+	map< int, list<int> > ml;
+	cin >> n;
+	while (n--)
+	{
+		cin >> str;
+		switch (str[0])
+		{
+		case 'n':
+			cin >> id1;
+			ml[id1] = list<int>();
+			break;
+		case 'a':
+			cin >> id1 >> num;
+			ml[id1].push_back(num);
+			break;
+		case 'm':
+			cin >> id1 >> id2;
+			ml[id1].merge(ml[id2]);
+			break;
+		case 'u':
+			cin >> id1;
+			ml[id1].sort();
+			ml[id1].unique();
+			break;
+		case 'o':
+			cin >> id1;
+			ml[id1].sort();
+			for (auto iter = ml[id1].begin(); iter != ml[id1].end(); ++iter)
+			{
+				cout << *iter << " ";
+			}
+			cout << endl;
+			break;
+		}
+	}
+ 
+	return 0;
 }
