@@ -143,8 +143,8 @@ private:
     int m_iv_count;
     int cgi;
     char *m_string;
-    int byte_to_send;
-    int byte_have_send;
+    int bytes_to_send;
+    int bytes_have_send;
     char *doc_root;
 
     map<string, string> m_users;

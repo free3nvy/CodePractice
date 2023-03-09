@@ -1,7 +1,7 @@
 #include "config.h"
 
 // cpp文件定义 h文件声明
-Config::config(){
+Config::Config(){
     PORT = 9006;
 
     LOGWrite = 0;

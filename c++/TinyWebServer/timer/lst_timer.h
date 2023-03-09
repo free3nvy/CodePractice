@@ -31,7 +31,7 @@ struct client_data
 {
     sockaddr_in address;
     int sockfd;
-    util_timer *time;
+    util_timer *timer;
 };
 
 class util_timer

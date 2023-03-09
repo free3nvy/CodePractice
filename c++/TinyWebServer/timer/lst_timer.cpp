@@ -191,6 +191,16 @@ void Utils::addfd(int epollfd, int fd, bool one_shot, int TRIGMode)
     setnonblocking(fd);
     
 }
+
+void Utils::sig_handler(int sig)
+{
+    //为保证函数的可重入性，保留原来的errno
+    int save_errno = errno;
+    int msg = sig;
+    send(u_pipefd[1], (char *)&msg, 1, 0);
+    errno = save_errno;
+}
+
 void Utils::addsig(int sig, void(handler)(int), bool restart)
 {
     struct sigaction sa;

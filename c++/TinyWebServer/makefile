@@ -1,6 +1,21 @@
 CXX ?= g++
 
-server: main.cpp
+
+DEBUG ?= 1
+
+
+ifeq ($(DEBUG), 1)
+	CXXFLAGS += -g
+else
+
+	CXXFLAGS += -02
+
+endif
+
+
+
+server: main.cpp ./timer/lst_timer.cpp ./http/http_conn.cpp ./log/log.cpp ./CGImysql/sql_connection_pool.cpp webserver.cpp config.cpp
+		$(CXX) -o server $^ $(CXXFLAGS) -lpthread -lmysqlclient
 
 test:
 	echo niubiiiii
