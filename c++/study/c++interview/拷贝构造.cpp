@@ -9,7 +9,7 @@ class Line
       Line( int len );             // 简单的构造函数
 
       // 这个就叫拷贝构造函数  经常是常量 类名 引用得形式
-        Line( const Line &obj);      // 拷贝构造函数
+      Line( const Line &obj);      // 拷贝构造函数
       ~Line();                     // 析构函数
  
    private:
@@ -36,7 +36,7 @@ Line::Line(const Line &obj)
  
 Line::~Line(void)
 {
-    cout << "释放内存" << endl;
+    cout << "释放内存only" << endl;
     delete ptr;
 }
 int Line::getLength( void )
@@ -52,8 +52,9 @@ void display(Line obj)
 // 程序的主函数
 int main( )
 {
+    // 第一次初始化
    Line line(10);
- 
+    // 用已经初始化过的line 来初始化display 必然会调用拷贝构造函数
    display(line);
  
    return 0;
