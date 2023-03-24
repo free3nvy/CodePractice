@@ -10,6 +10,7 @@ public:
     int searchInsert(vector<int>& nums, int target) {
 
         // 找他有没有 没有的话最后值进行处理 easy~
+        // 简单二分 有思路哈哈哈哈 真不错
         int left = 0;
         int right = nums.size();
         int middle;
