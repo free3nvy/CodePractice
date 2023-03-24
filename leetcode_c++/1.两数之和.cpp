@@ -8,10 +8,26 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        for (int i = 0; i < len; i++)
+        // 用hashmap来做
+        unordered_map <int, int> map;
+        
+        for (int i = 0; i < nums.size(); i++)
         {
-            /* code */
+
+            // 一定有答案得 所以。。
+            if (nums[i] > target)
+            {
+                continue;
+            }
+
+            int other = target - nums[i]
+
+            // 去hashmap里面去找
+            int map.find(other);
+
         }
+        
+        
         
 
         
