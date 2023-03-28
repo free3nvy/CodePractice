@@ -8,6 +8,7 @@
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
+<<<<<<< HEAD
         
         // 先思考好该设定哪一些的初值？？
         
@@ -38,6 +39,8 @@ public:
 
         return result == INT32_MAX? 0 : result; 
         
+=======
+>>>>>>> refs/remotes/origin/main
 
     }
 };
